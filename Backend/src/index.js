@@ -1,4 +1,6 @@
 require('dotenv').config(); 
+//import dotenv from 'dotenv/config';
+
 
 const app = require('./app');
 require('./database');
