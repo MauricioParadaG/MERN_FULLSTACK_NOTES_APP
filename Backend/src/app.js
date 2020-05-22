@@ -16,8 +16,8 @@ app.use(express.json());
 // Global Variables
 
 // Routes
-app.get('/api/users', require('./routes/users.routes'));
-app.get('/api/notes', require('./routes/notes.routes'));
+app.use('/api/users', require('./routes/users.routes'));
+app.use('/api/notes', require('./routes/notes.routes'));
 
 // Static Files
 
