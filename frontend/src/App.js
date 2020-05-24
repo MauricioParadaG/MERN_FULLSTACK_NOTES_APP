@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,19 +16,21 @@ function App() {
   return (
       <Router>
         <NavegationComponent></NavegationComponent>
-        
-        <Route exact path="/" component={NoteslistComponent}>
-        </Route>
 
-        <Route exact path="/edit/:id" component={CreateNoteComponent}>
-        </Route>
+        <div className="container p-4">
+          <Route exact path="/" component={NoteslistComponent}>
+          </Route>
 
-        <Route exact path="/create" component={CreateNoteComponent}>
-        </Route>
+          <Route exact path="/edit/:id" component={CreateNoteComponent}>
+          </Route>
 
-        <Route exact path="/user" component={CreateUserComponent}>
-        </Route>
+          <Route exact path="/create" component={CreateNoteComponent}>
+          </Route>
 
+          <Route exact path="/user" component={CreateUserComponent}>
+          </Route>
+
+        </div>
       </Router>
       
 
