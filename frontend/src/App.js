@@ -1,7 +1,10 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import logo from './logo.svg';
-// import './App.css';
+ import './App.css';
 
 // Components
 import NavegationComponent from './components/nav/Navegation.component';
