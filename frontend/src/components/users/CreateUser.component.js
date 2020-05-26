@@ -11,10 +11,14 @@ export default class CreateUserComponent extends Component {
     }
 
     async componentDidMount(){
-        const res = await axios.get('http://localhost:4000/api/users');
-        this.setState({users: res.data});
+        this.getUsers();
         //console.log(this.state.users);
       }
+
+    getUsers = async () => {
+      const res = await axios.get('http://localhost:4000/api/users');
+      this.setState({users: res.data});
+    }
 
     onChangeName = event => {
        this.setState({
@@ -24,13 +28,25 @@ export default class CreateUserComponent extends Component {
 
     onSubmit = async event =>{
         event.preventDefault();
-        const res = await axios.post('http://localhost:4000/api/users', {
+        await axios.post('http://localhost:4000/api/users', {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
         });
-        console.log(res);
+        //console.log(res);
+        this.setState({
+            name: '',
+            email: '',
+            password: ''
+        });
+        this.getUsers();
     }
+
+    deleteUser = async (id) =>{
+        await axios.delete('http://localhost:4000/api/users/'+ id);
+        //console.log(id);        
+        this.getUsers();
+    }   
 
     render() {
         return (
@@ -78,9 +94,12 @@ export default class CreateUserComponent extends Component {
                     <ul className="list-group">
                         {
                             this.state.users.map(user => <li className="list-group-item list-group-item-action" 
-                            key={user._id}>
+                            key={user._id}
+                            onDoubleClick={() => this.deleteUser(user._id)}
+                            >
+
                                 {user.name}
-                            </li>)
+                               </li>)
                         }
                     </ul>
                 </div>
