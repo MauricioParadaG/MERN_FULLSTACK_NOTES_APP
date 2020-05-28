@@ -10,7 +10,7 @@ export default class CreateUserComponent extends Component {
         password:''
     }
 
-    async componentDidMount(){
+    componentDidMount(){
         this.getUsers();
         //console.log(this.state.users);
       }
