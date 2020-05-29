@@ -14,6 +14,7 @@ export default class CreateNoteComponent extends Component {
     }
 
     async componentDidMount(){
+        console.log(this.props.match.params.id);
         const res = await axios.get('http://localhost:4000/api/users');
         this.setState({
             users: res.data.map(user => user.name),
