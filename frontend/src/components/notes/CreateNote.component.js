@@ -10,16 +10,30 @@ export default class CreateNoteComponent extends Component {
         userSelected:'',
         title: '',
         content: '',
-        date: new Date()        
+        date: new Date(),      
+        editing: false,
+        _id:''
     }
 
     async componentDidMount(){
-        console.log(this.props.match.params.id);
+        //console.log(this.props.match.params.id);
         const res = await axios.get('http://localhost:4000/api/users');
         this.setState({
             users: res.data.map(user => user.name),
             userSelected: res.data[0].name
         });
+        if(this.props.match.params.id){
+            const res = await axios.get('http://localhost:4000/api/notes/' + this.props.match.params.id);
+            //console.log(res.data);
+            this.setState({
+                title: res.data.title,
+                content: res.data.content,
+                date: new Date(res.data.date),
+                userSelected: res.data.user,
+                editing:true,
+                _id: this.props.match.params.id
+            });
+        }
     }
 
     onChangeNote = event => {
@@ -44,7 +58,11 @@ export default class CreateNoteComponent extends Component {
             date: this.state.date
         };
 
-        await axios.post('http://localhost:4000/api/notes', newNote);
+        if(this.state.editing){
+            await axios.put('http://localhost:4000/api/notes/'+ this.state._id, newNote);
+        } else {
+            await axios.post('http://localhost:4000/api/notes', newNote);
+        }
 
         window.location.href = '/';
 
@@ -68,6 +86,7 @@ export default class CreateNoteComponent extends Component {
                     <div className="form-group">
                         <select className="form-control" name="userSelected"
                         onChange={this.onChangeNote}
+                        value={this.state.userSelected}
                         required
                         >
                             {
